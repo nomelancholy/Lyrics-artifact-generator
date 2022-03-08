@@ -1,0 +1,17 @@
+function draw() {
+  var canvas = document.getElementById("canvas");
+  if (canvas.getContext) {
+    var ctx = canvas.getContext("2d");
+
+    // 그라데이션 생성
+    let grd = ctx.creatLinearGradient(0, 0, 200, 0);
+
+    ctx.fillStyle = "rgb(200,0,0)";
+    ctx.fillRect(10, 10, 50, 50);
+
+    ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+    ctx.fillRect(30, 30, 50, 50);
+  }
+}
+
+draw();

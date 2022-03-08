@@ -5,6 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+KR:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
   </head>
-  <body></body>
+  <body>
+    <div class="wrap">
+      <h1>Lyrics artifact generator</h1>
+      <!-- <div class="contents"> -->
+      <canvas id="canvas"></canvas>
+      <textarea name="" id="" cols="30" rows="10"></textarea>
+      <!-- </div> -->
+      <div class="control">
+        <label for="fontColor">font Color </label>
+        <input type="color" id="fontColor" />
+        <label for="fontSize">Font size</label>
+        <select name="fontSize" id="fontSize">
+          <option value="16px">16px</option>
+        </select>
+        <label for="mainBgColor">Main Bg Color </label>
+        <input type="color" id="mainBgColor" />
+        <label for="mainBgHex">main hex</label>
+        <input type="text" id="mainBgHex" />
+        <label for="subBgColor">Sub</label>
+        <input type="color" id="subBgColor" />
+        <label for="subBgHex">main hex</label>
+        <input type="text" id="subBgHex" />
+        <button>다운로드</button>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
 </html>
