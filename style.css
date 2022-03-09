@@ -27,8 +27,8 @@ body {
 }
 
 .wrap textarea {
-  margin: 80px 0 20px 0;
-  width: 100%;
+  margin: 80px auto 20px auto;
+  width: 540px;
   height: 100px;
   background: transparent;
   border: 2px solid red;
