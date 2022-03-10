@@ -20,9 +20,8 @@ body {
 }
 
 .wrap canvas {
-  width: 540px;
-  height: 540px;
-  background: blue;
+  /* width: 540px; */
+  /* height: 540px; */
   margin: auto;
 }
 
@@ -32,9 +31,10 @@ body {
   height: 100px;
   background: transparent;
   border: 2px solid red;
+  font-family: "Noto Sans KR", sans-serif;
   text-align: center;
   color: white;
-  font-size: 20px;
+  font-size: 50px;
 }
 
 .control {

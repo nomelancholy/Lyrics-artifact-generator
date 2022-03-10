@@ -24,15 +24,15 @@
     <div class="wrap">
       <h1>Lyrics artifact generator</h1>
       <!-- <div class="contents"> -->
-      <canvas id="canvas"></canvas>
+      <canvas id="canvas" width="540" height="540"></canvas>
       <textarea name="" id="" cols="30" rows="10"></textarea>
       <!-- </div> -->
       <div class="control">
         <label for="fontColor">font Color </label>
-        <input type="color" id="fontColor" />
+        <input type="color" id="fontColor" value="#FFFFFF" />
         <label for="fontSize">Font size</label>
         <select name="fontSize" id="fontSize">
-          <option value="16px">16px</option>
+          <option value="40">16px</option>
         </select>
         <label for="mainBgColor">Main Bg Color </label>
         <input type="color" id="mainBgColor" />
@@ -40,9 +40,9 @@
         <input type="text" id="mainBgHex" />
         <label for="subBgColor">Sub</label>
         <input type="color" id="subBgColor" />
-        <label for="subBgHex">main hex</label>
+        <label for="subBgHex">sub hex</label>
         <input type="text" id="subBgHex" />
-        <button>다운로드</button>
+        <button class="downloadButton">다운로드</button>
       </div>
     </div>
     <script src="main.js"></script>
