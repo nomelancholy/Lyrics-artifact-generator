@@ -1,9 +1,14 @@
 export default function Geneate({ $app }) {
-  const $generateButton = document.createElement("button");
-  $generateButton.className = "generateBtn";
-  $generateButton.innerText = "생성";
+  this.$generateButton = document.createElement("button");
+  this.$generateButton.innerText = "생성";
+  this.$generateButton.className = "generateButton";
 
-  const clickGenerate = () => {};
+  this.$generateButton.addEventListener("click", (e) => {
+    const link = document.createElement("a");
+    link.download = "artifact.png";
+    link.href = document.querySelector("canvas").toDataURL();
+    link.click();
+  });
 
-  $app.appendChild($generateButton);
+  $app.appendChild(this.$generateButton);
 }

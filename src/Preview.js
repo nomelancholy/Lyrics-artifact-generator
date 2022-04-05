@@ -1,9 +1,11 @@
 import Canvas from "./Canvas.js";
 import ColorPicker from "./ColorPicker.js";
 
-export default function Preview({ $app, text = "" }) {
+export default function Preview({ $app, text, fontSize, fontColor }) {
   this.state = {
     text,
+    fontSize,
+    fontColor,
     gradients: [],
     selectedGradient: [],
     recentlyUsedGradients: [],
@@ -14,14 +16,21 @@ export default function Preview({ $app, text = "" }) {
 
   $app.appendChild(this.$perviewSection);
 
-  let canvas = new Canvas({
+  const canvas = new Canvas({
     $app: this.$perviewSection,
-    text: "",
+    text: this.state.text,
+    fontSize: this.state.fontSize,
+    fontColor: this.state.fontColor,
   });
 
   this.setState = (nextState) => {
     this.state = nextState;
-    canvas.setState;
+    canvas.setState({
+      ...canvas.state,
+      text: this.state.text,
+      fontSize: this.state.fontSize,
+      fontColor: this.state.fontColor,
+    });
   };
 
   const init = async () => {

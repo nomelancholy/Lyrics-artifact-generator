@@ -1,22 +1,31 @@
 import Geneate from "./Generate.js";
 import TextInput from "./TextInput.js";
 
-export default function Control({ $app, text }) {
-  const $controlSection = document.createElement("div");
-  $controlSection.className = "controlSection";
+export default function Control({
+  $app,
+  onKeyUp,
+  onSelectColor,
+  onSelectFontSize,
+}) {
+  this.$textInputSection = document.createElement("div");
+  this.$textInputSection.className = "textInputSection";
 
-  const $textInputSection = document.createElement("div");
-  $textInputSection.className = "textInputSection";
+  new TextInput({
+    $app: this.$textInputSection,
+    onKeyUp,
+    onSelectColor,
+    onSelectFontSize,
+  });
 
-  new TextInput({ $app: $textInputSection });
+  this.$generateSection = document.createElement("div");
+  this.$generateSection.className = "generateSection";
 
-  const $generateSection = document.createElement("div");
-  $generateSection.className = "generateSection";
+  new Geneate({ $app: this.$generateSection });
 
-  new Geneate({ $app: $generateSection });
+  this.$controlSection = document.createElement("div");
+  this.$controlSection.className = "controlSection";
+  this.$controlSection.appendChild(this.$textInputSection);
+  this.$controlSection.appendChild(this.$generateSection);
 
-  $controlSection.appendChild($textInputSection);
-  $controlSection.appendChild($generateSection);
-
-  $app.appendChild($controlSection);
+  $app.appendChild(this.$controlSection);
 }

@@ -1,33 +1,46 @@
-export default function TextInput({ $app }) {
-  const $fontColorLabel = document.createElement("label");
-  $fontColorLabel.htmlFor = "fontColor";
+export default function TextInput({
+  $app,
+  onKeyUp,
+  onSelectColor,
+  onSelectFontSize,
+}) {
+  this.$fontColorLabel = document.createElement("label");
+  this.$fontColorLabel.innerText = "글자 색";
+  this.$fontColorLabel.htmlFor = "fontColor";
 
-  const $fontColor = document.createElement("input");
-  $fontColor.type = "color";
-  $fontColor.id = "fontColor";
+  this.$fontColor = document.createElement("input");
+  this.$fontColor.type = "color";
+  this.$fontColor.id = "fontColor";
+  this.$fontColor.value = "#ffffff";
 
-  const $fontSizeLabel = document.createElement("label");
-  $fontSizeLabel.htmlFor = "fontSizeSelect";
+  this.$fontColor.addEventListener("change", onSelectColor);
 
-  const $fontSizeSelect = document.createElement("select");
-  $fontSizeSelect.id = "fontSizeSelect";
-  $fontSizeSelect.name = "fontSizeSelect";
+  this.$fontSizeLabel = document.createElement("label");
+  this.$fontSizeLabel.innerText = "글자 크기";
+  this.$fontSizeLabel.htmlFor = "fontSizeSelect";
+
+  this.$fontSizeSelect = document.createElement("select");
+  this.$fontSizeSelect.id = "fontSizeSelect";
+  this.$fontSizeSelect.name = "fontSizeSelect";
 
   for (let i = 8; i <= 32; i++) {
     const $fontSizeOption = document.createElement("option");
     $fontSizeOption.text = `${i} px`;
     $fontSizeOption.value = i;
 
-    $fontSizeSelect.options.add($fontSizeOption);
+    this.$fontSizeSelect.options.add($fontSizeOption);
   }
 
-  const $textArea = document.createElement("textarea");
+  this.$fontSizeSelect.addEventListener("change", onSelectFontSize);
 
-  $app.appendChild($textArea);
+  this.$textArea = document.createElement("textarea");
+  this.$textArea.addEventListener("keyup", onKeyUp);
 
-  $app.appendChild($fontColorLabel);
-  $app.appendChild($fontColor);
+  $app.appendChild(this.$textArea);
 
-  $app.appendChild($fontSizeLabel);
-  $app.appendChild($fontSizeSelect);
+  $app.appendChild(this.$fontColorLabel);
+  $app.appendChild(this.$fontColor);
+
+  $app.appendChild(this.$fontSizeLabel);
+  $app.appendChild(this.$fontSizeSelect);
 }
