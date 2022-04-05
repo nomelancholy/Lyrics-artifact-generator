@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Lyrics artifact generator</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
@@ -21,30 +21,28 @@
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <div class="wrap">
-      <h1>Lyrics artifact generator</h1>
+    <div class="App">
+      <!-- <h1>Lyrics artifact generator</h1> -->
       <!-- <div class="contents"> -->
-      <canvas id="canvas" width="540" height="540"></canvas>
-      <textarea name="" id="" cols="30" rows="10"></textarea>
+
       <!-- </div> -->
-      <div class="control">
+      <!-- <div class="preview_section">
+        <canvas id="canvas" width="540" height="540"></canvas>
+        <button class="bg_color_change_btn">배경색 변경</button>
+      </div> -->
+      <!-- <div class="control_seciton">
         <label for="fontColor">font Color </label>
         <input type="color" id="fontColor" value="#FFFFFF" />
         <label for="fontSize">Font size</label>
         <select name="fontSize" id="fontSize">
           <option value="40">16px</option>
+          <textarea name="" id="" cols="30" rows="10"></textarea>
         </select>
-        <label for="mainBgColor">Main Bg Color </label>
-        <input type="color" id="mainBgColor" />
-        <label for="mainBgHex">main hex</label>
-        <input type="text" id="mainBgHex" />
-        <label for="subBgColor">Sub</label>
-        <input type="color" id="subBgColor" />
-        <label for="subBgHex">sub hex</label>
-        <input type="text" id="subBgHex" />
-        <button class="downloadButton">다운로드</button>
-      </div>
+        <button class="generateBtn">생성</button>
+      </div> -->
+      <div class="modal"></div>
     </div>
-    <script src="main.js"></script>
+
+    <script src="/src/index.js" type="module"></script>
   </body>
 </html>

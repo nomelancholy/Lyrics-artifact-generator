@@ -1,20 +1,22 @@
+import App from "./App.js";
+
+new App({ $app: document.querySelector(".App") });
+
 // 캔버스
 const canvas = document.querySelector("#canvas");
 // 폰트 관련
 const fontColor = document.querySelector("#fontColor");
 const fontSize = document.querySelector("#fontSize");
 const textArea = document.querySelector("textarea");
-// 배경 관련
-const mainBgColor = document.querySelector("#mainBgColor");
-const mainBgHex = document.querySelector("#mainBgHex");
-const subBgColor = document.querySelector("#subBgColor");
-const subBgHex = document.querySelector("#subBgHex");
-// 다운로드
-const downloadButton = document.querySelector(".downloadButton");
 
-function download() {}
+// 배경색 변경 버튼
+const $bgColorChangeBtn = document.querySelector(".bg_color_change_btn");
+// modal
+const $modal = document.querySelector(".modal");
 
-function bgColorChange() {}
+$bgColorChangeBtn.onclick = () => {
+  $modal.style.display = "block";
+};
 
 function inputText(e) {
   e.preventDefault();
@@ -56,8 +58,6 @@ function fontColorChange(e) {
   textArea.style.color = e.target.value;
 }
 
-function fontSizeChange() {}
-
 function draw() {
   if (canvas.getContext) {
     // const ctx = canvas.getContext("2d");
@@ -70,10 +70,45 @@ function draw() {
   }
 }
 
-function init() {
+const setColorPreview = (gradients) => {
+  console.log("gradients :>> ", gradients);
+
+  const $palette = document.createElement("ul");
+  $palette.classList.add("palette");
+
+  $palette.innerHTML = `
+    ${gradients
+      .map(
+        (gradient) => `
+      <li data-color-name="${
+        gradient.name
+      }" style="background : linear-gradient(to bottom right, ${gradient.colors.join(
+          ","
+        )})">
+        <span>${gradient.name}</span>
+      </li>
+    `
+      )
+      .join("")}
+  `;
+
+  $palette.addEventListener("click", (e) => {
+    const $li = e.target.closest("li");
+    const { colorName } = $li.dataset;
+    alert(colorName);
+  });
+
+  const $modal = document.querySelector(".modal");
+  $modal.appendChild($palette);
+
+  window.onclick = (e) => {
+    if (e.target == $modal) {
+      $modal.style.display = "none";
+    }
+  };
+};
+
+async function init() {
   textArea.addEventListener("keyup", inputText);
   fontColor.addEventListener("input", fontColorChange);
-  // draw();
 }
-
-init();
