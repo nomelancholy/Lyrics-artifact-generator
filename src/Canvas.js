@@ -39,7 +39,7 @@ export default function Canvase({ $app, text, fontSize, fontColor }) {
         line,
         this.$canvas.width / 2,
         this.$canvas.height / 2 -
-          this.state.fontSize * (fontSize - 2) * line_len +
+          this.state.fontSize * (fontSize / 1.6) * line_len +
           this.state.fontSize * (fontSize + 3) * index
       );
     });
