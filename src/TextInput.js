@@ -23,9 +23,9 @@ export default function TextInput({
   this.$fontSizeSelect.id = "fontSizeSelect";
   this.$fontSizeSelect.name = "fontSizeSelect";
 
-  for (let i = 8; i <= 32; i++) {
+  for (let i = 1; i <= 10; i++) {
     const $fontSizeOption = document.createElement("option");
-    $fontSizeOption.text = `${i} px`;
+    $fontSizeOption.text = `${i} rem`;
     $fontSizeOption.value = i;
 
     this.$fontSizeSelect.options.add($fontSizeOption);

@@ -1,3 +1,7 @@
+html {
+  font-size: 16px;
+}
+
 body {
   background: #babdbd;
 }
@@ -46,8 +50,9 @@ body {
 }
 
 canvas {
-  width: 540px;
-  height: 540px;
+  border: 1px solid black;
+  /* width: 540px;
+  height: 540px; */
 }
 .palette {
   width: 80%;

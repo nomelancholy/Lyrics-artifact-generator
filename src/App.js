@@ -9,7 +9,7 @@ export default function App({ $app }) {
 
   this.state = {
     text: "",
-    fontSize: 8,
+    fontSize: 1,
     fontColor: "#ffffff",
   };
 

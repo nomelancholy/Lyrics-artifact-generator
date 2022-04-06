@@ -1,7 +1,7 @@
 export default function Canvase({ $app, text, fontSize, fontColor }) {
   this.$canvas = document.createElement("canvas");
-  this.$canvas.style.width = 540;
-  this.$canvas.style.height = 540;
+  this.$canvas.width = 540;
+  this.$canvas.height = 540;
 
   this.state = { text, fontSize, fontColor };
 
@@ -13,25 +13,36 @@ export default function Canvase({ $app, text, fontSize, fontColor }) {
   };
 
   this.render = () => {
+    // rem 사용중이니 root font size load
+    const $html = document.querySelector("html");
+    let fontSize = document.defaultView
+      .getComputedStyle($html)
+      .getPropertyValue("font-size");
+
+    fontSize = Number(fontSize.slice(0, -2));
+
     const ctx = this.$canvas.getContext("2d");
-    ctx.clearRect(540, 540, 540, 540);
+    // 기존 그림 지우고
+    ctx.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
+
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = `${this.state.fontSize}px Noto Sans KR`;
+    ctx.font = `${this.state.fontSize}em Noto Sans KR`;
 
     const lines = this.state.text.split("\n");
+
+    const line_len = lines.length - 1;
 
     lines.forEach((line, index) => {
       ctx.fillStyle = this.state.fontColor;
       ctx.fillText(
         line,
         this.$canvas.width / 2,
-        this.$canvas.height / 2 + this.state.fontSize * index
+        this.$canvas.height / 2 -
+          this.state.fontSize * (fontSize - 2) * line_len +
+          this.state.fontSize * (fontSize + 3) * index
       );
     });
-
-    console.log("ctx :>> ", ctx);
-    console.log("canvas render");
   };
 
   this.render();
