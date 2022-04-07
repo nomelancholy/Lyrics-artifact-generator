@@ -72,7 +72,6 @@ export default function Preview({ $app, text, fontSize, fontColor }) {
   };
 
   const init = async () => {
-    console.log("getGradients");
     const response = await fetch("/gradients.json");
 
     if (response.ok) {

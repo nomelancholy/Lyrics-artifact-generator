@@ -21,7 +21,6 @@ export default function Modal({ $app, gradients = [], onSelectBgColor }) {
   $app.appendChild(this.$target);
 
   this.render = () => {
-    console.log("this.state.gradients :>> ", this.state.gradients);
     this.$palette.innerHTML = this.state.gradients
       ? this.state.gradients
           .map(

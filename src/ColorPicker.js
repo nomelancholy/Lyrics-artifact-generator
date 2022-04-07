@@ -15,7 +15,6 @@ export default function ColorPicker({
 
   this.setState = (nextState) => {
     this.state = nextState;
-    console.log("this.state :>> ", this.state);
     this.render();
   };
 
@@ -47,28 +46,26 @@ export default function ColorPicker({
   this.$recentlyColorPicker.className = "recently_color_picker";
 
   this.render = () => {
-    console.log(
-      "this.state.recentlyUsedGradients :>> ",
-      this.state.recentlyUsedGradients
-    );
-
     if (this.state.recentlyUsedGradients.length > 0) {
-      console.log(
-        "this.state.recentlyUsedGradients :>> ",
-        this.state.recentlyUsedGradients
-      );
-      this.$recentlyColorPicker.innerHTML = `
-      <ul>
+      // 내부 엘리먼트 초기화
+      this.$recentlyColorPicker.innerHTML = "";
+
+      const $ul = document.createElement("ul");
+
+      $ul.addEventListener("click", onSelectBgColor);
+
+      $ul.innerHTML = `
         ${this.state.recentlyUsedGradients
           .map(
             (gradient) =>
-              `<li style="background : linear-gradient(to bottom right, ${gradient})"></li>`
+              `<li data-colors="${gradient}" onClick="${() => onSelectBgColor}"
+                   style="background : linear-gradient(to bottom right, ${gradient})"></li>`
           )
           .join("")}
-      </ul>
       `;
+
+      this.$recentlyColorPicker.appendChild($ul);
     } else {
-      console.log("this.$recentlyColorPicker :>> ", this.$recentlyColorPicker);
       this.$recentlyColorPicker.innerHTML =
         "<p>최근 선택한 색깔이 없습니다</p>";
     }
