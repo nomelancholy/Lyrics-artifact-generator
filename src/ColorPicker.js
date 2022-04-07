@@ -6,6 +6,7 @@ export default function ColorPicker({
   selectedGradient,
   recentlyUsedGradients,
   onSelectBgColor,
+  onRotate,
 }) {
   this.state = {
     gradients,
@@ -22,7 +23,10 @@ export default function ColorPicker({
   const modal = new Modal({ $app: $body, gradients, onSelectBgColor });
 
   this.$bgSelectBtn = document.createElement("button");
-  this.$bgSelectBtn.innerHTML = "배경색 선택";
+  this.$bgSelectBtn.innerText = "배경색 선택";
+
+  this.$rotateBtn = document.createElement("button");
+  this.$rotateBtn.innerText = "오른쪽으로 회전";
 
   const $modal = document.querySelector(".modal");
 
@@ -41,6 +45,8 @@ export default function ColorPicker({
       $modal.style.display = "none";
     }
   };
+
+  this.$rotateBtn.addEventListener("click", onRotate);
 
   this.$recentlyColorPicker = document.createElement("div");
   this.$recentlyColorPicker.className = "recently_color_picker";
@@ -76,5 +82,6 @@ export default function ColorPicker({
   };
 
   $app.appendChild(this.$bgSelectBtn);
+  $app.appendChild(this.$rotateBtn);
   $app.appendChild(this.$recentlyColorPicker);
 }

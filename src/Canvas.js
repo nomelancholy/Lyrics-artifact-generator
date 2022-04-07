@@ -4,12 +4,31 @@ export default function Canvase({
   fontSize,
   fontColor,
   selectedGradient,
+  rotateIndex,
 }) {
   this.$canvas = document.createElement("canvas");
   this.$canvas.width = 540;
   this.$canvas.height = 540;
 
-  this.state = { text, fontSize, fontColor, selectedGradient };
+  this.state = {
+    text,
+    fontSize,
+    fontColor,
+    selectedGradient,
+    rotateIndex,
+  };
+
+  // left to right, left top to right bottom, top to bottom, right top to left bottom, right to left, right bottom to left top, bottom to top, left bottom to right top
+  const directions = [
+    [0, 0, this.$canvas.width, 0],
+    [0, 0, this.$canvas.width, this.$canvas.height],
+    [0, 0, 0, this.$canvas.height],
+    [this.$canvas.width, 0, 0, this.$canvas.height],
+    [this.$canvas.width, 0, 0, 0],
+    [this.$canvas.width, this.$canvas.height, 0, 0],
+    [0, this.$canvas.height, 0, 0],
+    [0, this.$canvas.height, this.$canvas.width, 0],
+  ];
 
   $app.appendChild(this.$canvas);
 
@@ -33,8 +52,10 @@ export default function Canvase({
 
     // 배경 입력
     if (this.state.selectedGradient) {
+      const [x0, y0, x1, y1] = directions[this.state.rotateIndex];
+
       const gradients = this.state.selectedGradient.split(",");
-      let grd = ctx.createLinearGradient(0, 0, this.$canvas.width, 0);
+      let grd = ctx.createLinearGradient(x0, y0, x1, y1);
 
       for (let [index, gradient] of gradients.entries()) {
         grd.addColorStop(index, gradient);

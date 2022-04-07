@@ -9,6 +9,7 @@ export default function Preview({ $app, text, fontSize, fontColor }) {
     gradients: [],
     recentlyUsedGradients: [],
     selectedGradient: "",
+    rotateIndex: 0,
   };
 
   this.$perviewSection = document.createElement("div");
@@ -21,6 +22,7 @@ export default function Preview({ $app, text, fontSize, fontColor }) {
     text: this.state.text,
     fontSize: this.state.fontSize,
     fontColor: this.state.fontColor,
+    rotateIndex: this.state.rotateIndex,
   });
 
   const colorPicker = new ColorPicker({
@@ -31,7 +33,7 @@ export default function Preview({ $app, text, fontSize, fontColor }) {
       const $li = e.target.closest("li");
 
       if ($li) {
-        const { colorName, colors } = $li.dataset;
+        const { colors } = $li.dataset;
 
         let recentlyUsed = [];
 
@@ -56,18 +58,31 @@ export default function Preview({ $app, text, fontSize, fontColor }) {
         });
       }
     },
+    onRotate: (e) => {
+      let newRotateIndex = this.state.rotateIndex + 1;
+
+      if (newRotateIndex >= 8) {
+        newRotateIndex = 0;
+      }
+
+      this.setState({
+        rotateIndex: newRotateIndex,
+      });
+    },
   });
 
   this.setState = (nextState) => {
-    this.state = nextState;
+    this.state = {
+      ...this.state,
+      ...nextState,
+    };
     canvas.setState({
       ...canvas.state,
       ...this.state,
     });
     colorPicker.setState({
       ...colorPicker.state,
-      gradients: this.state.gradients,
-      recentlyUsedGradients: this.state.recentlyUsedGradients,
+      ...this.state,
     });
   };
 
