@@ -7,6 +7,7 @@ export default function Preview({ $app, text, fontSize, fontColor }) {
     fontSize,
     fontColor,
     gradients: [],
+    recentlyUsedGradients: [],
     selectedGradient: "",
   };
 
@@ -22,45 +23,74 @@ export default function Preview({ $app, text, fontSize, fontColor }) {
     fontColor: this.state.fontColor,
   });
 
+  const colorPicker = new ColorPicker({
+    $app: this.$perviewSection,
+    gradients: this.state.gradients,
+    selectedGradient: this.state.selectedGradient,
+    onSelectBgColor: (e) => {
+      const $li = e.target.closest("li");
+
+      if ($li) {
+        const { colorName, colors } = $li.dataset;
+
+        let recentlyUsed = [];
+
+        if (localStorage.length > 0) {
+          recentlyUsed = JSON.parse(localStorage.getItem("recentlyUsed"));
+        }
+
+        // 최근 10번이내 선택하지 않은 경우
+        if (recentlyUsed.indexOf(colors) == -1) {
+          recentlyUsed.push(colors);
+
+          // 두 줄로 10개만 보여주자
+          if (recentlyUsed.length > 10) {
+            recentlyUsed.splice(0, recentlyUsed.length - 10);
+          }
+
+          localStorage.setItem("recentlyUsed", JSON.stringify(recentlyUsed));
+        }
+        this.setState({
+          selectedGradient: colors,
+          recentlyUsedGradients: recentlyUsed,
+        });
+      }
+    },
+  });
+
   this.setState = (nextState) => {
     this.state = nextState;
     canvas.setState({
       ...canvas.state,
-      ...nextState,
+      ...this.state,
+    });
+    colorPicker.setState({
+      ...colorPicker.state,
+      gradients: this.state.gradients,
+      recentlyUsedGradients: this.state.recentlyUsedGradients,
     });
   };
 
   const init = async () => {
+    console.log("getGradients");
     const response = await fetch("/gradients.json");
 
     if (response.ok) {
       const gradients = await response.json();
 
+      // 기본 색상 랜덤 선택
       const basicGraidentIndex = Math.floor(
         Math.random() * (gradients.length + 1)
       );
+
+      // 최근 선택
+      const recentlyUsed = JSON.parse(localStorage.getItem("recentlyUsed"));
 
       this.setState({
         ...this.state,
         gradients: gradients,
         selectedGradient: gradients[basicGraidentIndex].colors.join(","),
-      });
-
-      new ColorPicker({
-        $app: this.$perviewSection,
-        gradients: this.state.gradients,
-        selectedGradient: this.state.selectedGradient,
-        onSelectBgColor: (e) => {
-          const $li = e.target.closest("li");
-
-          if ($li) {
-            const { colorName, colors } = $li.dataset;
-
-            this.setState({
-              selectedGradient: colors,
-            });
-          }
-        },
+        recentlyUsedGradients: recentlyUsed,
       });
     }
   };
