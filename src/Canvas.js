@@ -1,9 +1,15 @@
-export default function Canvase({ $app, text, fontSize, fontColor }) {
+export default function Canvase({
+  $app,
+  text,
+  fontSize,
+  fontColor,
+  selectedGradient,
+}) {
   this.$canvas = document.createElement("canvas");
   this.$canvas.width = 540;
   this.$canvas.height = 540;
 
-  this.state = { text, fontSize, fontColor };
+  this.state = { text, fontSize, fontColor, selectedGradient };
 
   $app.appendChild(this.$canvas);
 
@@ -15,34 +21,52 @@ export default function Canvase({ $app, text, fontSize, fontColor }) {
   this.render = () => {
     // rem 사용중이니 root font size load
     const $html = document.querySelector("html");
-    let fontSize = document.defaultView
+    let rootFontSize = document.defaultView
       .getComputedStyle($html)
       .getPropertyValue("font-size");
 
-    fontSize = Number(fontSize.slice(0, -2));
+    rootFontSize = Number(rootFontSize.slice(0, -2));
 
     const ctx = this.$canvas.getContext("2d");
     // 기존 그림 지우고
     ctx.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
 
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.font = `${this.state.fontSize}em Noto Sans KR`;
+    // 배경 입력
+    if (this.state.selectedGradient) {
+      const gradients = this.state.selectedGradient.split(",");
+      let grd = ctx.createLinearGradient(0, 0, this.$canvas.width, 0);
 
-    const lines = this.state.text.split("\n");
+      for (let [index, gradient] of gradients.entries()) {
+        grd.addColorStop(index, gradient);
+      }
 
-    const line_len = lines.length - 1;
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, this.$canvas.width, this.$canvas.height);
+    }
 
-    lines.forEach((line, index) => {
-      ctx.fillStyle = this.state.fontColor;
-      ctx.fillText(
-        line,
-        this.$canvas.width / 2,
-        this.$canvas.height / 2 -
-          this.state.fontSize * (fontSize / 1.6) * line_len +
-          this.state.fontSize * (fontSize + 3) * index
-      );
-    });
+    // 글자 입력
+    if (this.state.text) {
+      const ctx = this.$canvas.getContext("2d");
+
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = `${this.state.fontSize}em Noto Sans KR`;
+
+      const lines = this.state.text.split("\n");
+
+      const line_len = lines.length - 1;
+
+      lines.forEach((line, index) => {
+        ctx.fillStyle = this.state.fontColor;
+        ctx.fillText(
+          line,
+          this.$canvas.width / 2,
+          this.$canvas.height / 2 -
+            this.state.fontSize * (rootFontSize / 1.6) * line_len +
+            this.state.fontSize * (rootFontSize + 3) * index
+        );
+      });
+    }
   };
 
   this.render();

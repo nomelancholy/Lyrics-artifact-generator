@@ -1,42 +1,43 @@
-export default function Modal({ $app, initialState = [] }) {
-  this.state = initialState;
-
-  this.$target = document.createElement("div");
-  this.$target.className = "modal";
+export default function Modal({ $app, gradients = [], onSelectBgColor }) {
+  this.state = {
+    gradients,
+  };
 
   this.setState = (params) => {
     this.state = params;
     this.render();
   };
 
-  this.render = () => {
-    const $palette = document.createElement("ul");
-    $palette.className = "palette";
+  this.$target = document.createElement("div");
+  this.$target.className = "modal";
 
-    $palette.innerHTML =
-      this.state && this.state.length > 0
-        ? this.state
-            .map(
-              (gradient) => `
-    <li data-color-name="${gradient.name}" 
+  this.$palette = document.createElement("ul");
+  this.$palette.className = "palette";
+
+  this.$target.appendChild(this.$palette);
+
+  this.$target.addEventListener("click", onSelectBgColor);
+
+  $app.appendChild(this.$target);
+
+  this.render = () => {
+    this.$palette.innerHTML = this.state.gradients
+      ? this.state.gradients
+          .map(
+            (gradient) => `
+      <li data-color-name="${
+        gradient.name
+      }" data-colors="${gradient.colors.join(",")}" 
         style="background : linear-gradient(to bottom right, ${gradient.colors.join(
           ","
         )})">
         <span>${gradient.name}</span>
       </li>
     `
-            )
-            .join("")
-        : ``;
-
-    this.$target.appendChild($palette);
+          )
+          .join("")
+      : "";
   };
-
-  $palette.addEventListener("click", (e) => {
-    const $li = e.target.closest("li");
-    const { colorName } = $li.dataset;
-    alert(colorName);
-  });
 
   this.render();
 }
