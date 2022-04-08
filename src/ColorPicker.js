@@ -46,6 +46,7 @@ export default function ColorPicker({
   };
 
   this.$bgSelectBtn = document.createElement("button");
+  this.$bgSelectBtn.className = "bg_select_btn";
   this.$bgSelectBtn.innerText = "배경색 선택";
 
   this.$bgSelectBtn.addEventListener("click", () => {
@@ -54,6 +55,7 @@ export default function ColorPicker({
 
   // canvas rotate
   this.$rotateBtn = document.createElement("button");
+  this.$rotateBtn.className = "rotate_btn";
   this.$rotateBtn.innerText = "오른쪽으로 회전";
 
   this.$rotateBtn.addEventListener("click", onClickRotateBtn);

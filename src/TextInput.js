@@ -24,15 +24,20 @@ export default function TextInput({
   this.$fontLegend = document.createElement("legend");
   this.$fontLegend.innerText = "font control";
 
-  // fontColor
+  // text Color
+  this.$fontControlWrap = document.createElement("div");
+  this.$fontControlWrap.className = "font_control_wrap";
+
   this.$fontColorLabel = document.createElement("label");
   this.$fontColorLabel.innerText = "글자 색";
   this.$fontColorLabel.htmlFor = "fontColor";
+  this.$fontColorLabel.className = "font_control_item";
 
   this.$fontColor = document.createElement("input");
   this.$fontColor.type = "color";
   this.$fontColor.id = "fontColor";
   this.$fontColor.value = "#ffffff";
+  this.$fontColor.className = "font_control_item";
 
   this.$fontColor.addEventListener("change", onSelectFontColor);
 
@@ -40,10 +45,12 @@ export default function TextInput({
   this.$fontSizeLabel = document.createElement("label");
   this.$fontSizeLabel.innerText = "글자 크기";
   this.$fontSizeLabel.htmlFor = "fontSizeSelect";
+  this.$fontSizeLabel.className = "font_control_item";
 
   this.$fontSizeSelect = document.createElement("select");
   this.$fontSizeSelect.id = "fontSizeSelect";
   this.$fontSizeSelect.name = "fontSizeSelect";
+  this.$fontSizeSelect.className = "font_control_item";
 
   // recentlyUsedFontColors
   this.$recentlyUsedFontColors = document.createElement("div");
@@ -98,11 +105,13 @@ export default function TextInput({
 
   $app.appendChild(this.$textArea);
 
-  $app.appendChild(this.$fontColorLabel);
-  $app.appendChild(this.$fontColor);
+  this.$fontControlWrap.appendChild(this.$fontColorLabel);
+  this.$fontControlWrap.appendChild(this.$fontColor);
 
-  $app.appendChild(this.$fontSizeLabel);
-  $app.appendChild(this.$fontSizeSelect);
+  this.$fontControlWrap.appendChild(this.$fontSizeLabel);
+  this.$fontControlWrap.appendChild(this.$fontSizeSelect);
+
+  $app.appendChild(this.$fontControlWrap);
 
   $app.appendChild(this.$recentlyUsedFontColors);
 }
