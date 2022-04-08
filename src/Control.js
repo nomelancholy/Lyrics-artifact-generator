@@ -6,6 +6,8 @@ export default function Control({
   $app,
   gradients,
   recentlyUsedGradients,
+  fontColor,
+  recentlyUsedFontColors,
   onKeyUp,
   onSelectFontColor,
   onSelectFontSize,
@@ -17,7 +19,9 @@ export default function Control({
 
   this.state = {
     gradients,
+    fontColor,
     recentlyUsedGradients,
+    recentlyUsedFontColors,
   };
 
   this.setState = (nextState) => {
@@ -27,6 +31,10 @@ export default function Control({
     };
     bgControl.setState({
       ...bgControl.state,
+      ...this.state,
+    });
+    textControl.setState({
+      ...textControl.state,
       ...this.state,
     });
   };
@@ -39,8 +47,10 @@ export default function Control({
     onClickRotateBtn,
   });
 
-  new TextControl({
+  const textControl = new TextControl({
     $app: this.$controlSection,
+    fontColor: this.state.fontColor,
+    recentlyUsedFontColors: this.state.recentlyUsedFontColors,
     onKeyUp,
     onSelectFontColor,
     onSelectFontSize,

@@ -1,9 +1,23 @@
 export default function TextInput({
   $app,
+  fontColor,
   onKeyUp,
   onSelectFontColor,
   onSelectFontSize,
 }) {
+  this.state = {
+    fontColor,
+  };
+
+  this.setState = (nextState) => {
+    this.state = {
+      ...this.state,
+      ...nextState,
+    };
+
+    this.render();
+  };
+
   // legend
   this.$fontLegend = document.createElement("legend");
   this.$fontLegend.innerText = "font control";
@@ -43,6 +57,10 @@ export default function TextInput({
   // textArea
   this.$textArea = document.createElement("textarea");
   this.$textArea.addEventListener("keyup", onKeyUp);
+
+  this.render = () => {
+    this.$fontColor.value = this.state.fontColor;
+  };
 
   $app.appendChild(this.$fontLegend);
 

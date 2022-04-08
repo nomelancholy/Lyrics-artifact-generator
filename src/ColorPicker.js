@@ -77,7 +77,7 @@ export default function ColorPicker({
         ${this.state.recentlyUsedGradients
           .map(
             (gradient) =>
-              `<li data-colors="${gradient}" onClick="${() => onSelectBgColor}"
+              `<li data-colors= "${gradient}"
                    style="background : linear-gradient(to bottom right, ${gradient})"></li>`
           )
           .join("")}

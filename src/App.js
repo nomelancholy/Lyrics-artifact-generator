@@ -13,6 +13,7 @@ export default function App({ $app }) {
     fontColor: "#ffffff",
     gradients: [],
     recentlyUsedGradients: [],
+    recentlyUsedFontColors: ["#ffffff"],
     selectedGradient: "",
     rotateIndex: 0,
   };
@@ -45,16 +46,58 @@ export default function App({ $app }) {
     $app,
     gradients: this.state.gradients,
     recentlyUsedGradients: this.state.recentlyUsedGradients,
+    fontColor: this.state.fontColor,
+    recentlyUsedFontColors: this.state.recentlyUsedFontColors,
     onKeyUp: (e) => {
       this.setState({
         text: e.target.value,
       });
     },
     onSelectFontColor: (e) => {
-      // To-Do : 최근 선택 글씨들
-      this.setState({
-        fontColor: e.target.value,
-      });
+      let newFontColor = this.state.fontColor;
+
+      if (typeof e.target.value == "number") {
+        // 최근 선택에서 바로 클릭
+        const $li = e.target.closest("li");
+        const { color } = $li.dataset;
+
+        newFontColor = color;
+      } else {
+        // 셀렉트 박스에서 직접 클릭
+        newFontColor = e.target.value;
+      }
+
+      if (newFontColor) {
+        this.setState({
+          fontColor: newFontColor,
+        });
+
+        let recentlyUsed = [];
+
+        const items = localStorage.getItem("recentlyUsedFontColors");
+
+        if (items) {
+          recentlyUsed = JSON.parse(items);
+        }
+
+        // 선택한 색을 최근 10번이내 선택한 적 없는 경우
+        if (recentlyUsed.indexOf(newFontColor) == -1) {
+          recentlyUsed.push(newFontColor);
+
+          if (recentlyUsed.length > 10) {
+            recentlyUsed.splice(0, recentlyUsed.length - 10);
+          }
+
+          localStorage.setItem(
+            "recentlyUsedFontColors",
+            JSON.stringify(recentlyUsed)
+          );
+
+          this.setState({
+            recentlyUsedFontColors: recentlyUsed,
+          });
+        }
+      }
     },
     onSelectFontSize: (e) => {
       this.setState({
@@ -71,10 +114,12 @@ export default function App({ $app }) {
         let recentlyUsed = [];
 
         if (localStorage.length > 0) {
-          recentlyUsed = JSON.parse(localStorage.getItem("recentlyUsed"));
+          recentlyUsed = JSON.parse(
+            localStorage.getItem("recentlyUsedBgColors")
+          );
         }
 
-        // 최근 10번이내 선택하지 않은 경우
+        // 선택한 색을 최근 10번이내 선택하지 않은 경우
         if (recentlyUsed.indexOf(colors) == -1) {
           recentlyUsed.push(colors);
 
@@ -83,7 +128,10 @@ export default function App({ $app }) {
             recentlyUsed.splice(0, recentlyUsed.length - 10);
           }
 
-          localStorage.setItem("recentlyUsed", JSON.stringify(recentlyUsed));
+          localStorage.setItem(
+            "recentlyUsedBgColors",
+            JSON.stringify(recentlyUsed)
+          );
         }
         this.setState({
           selectedGradient: colors,
@@ -116,13 +164,20 @@ export default function App({ $app }) {
       );
 
       // 최근 선택 배경
-      const recentlyUsedBgs = JSON.parse(localStorage.getItem("recentlyUsed"));
+      const bgColors = JSON.parse(localStorage.getItem("recentlyUsedBgColors"));
+
+      const fontColors = JSON.parse(
+        localStorage.getItem("recentlyUsedFontColors")
+      );
 
       this.setState({
         ...this.state,
         gradients: gradients,
         selectedGradient: gradients[basicGraidentIndex].colors.join(","),
-        recentlyUsedGradients: recentlyUsedBgs,
+        recentlyUsedGradients: bgColors,
+        recentlyUsedFontColors: fontColors
+          ? fontColors
+          : this.state.recentlyUsedFontColors,
       });
     }
   };
