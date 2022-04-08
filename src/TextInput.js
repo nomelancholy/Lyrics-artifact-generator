@@ -1,12 +1,14 @@
 export default function TextInput({
   $app,
   fontColor,
+  recentlyUsedFontColors,
   onKeyUp,
   onSelectFontColor,
   onSelectFontSize,
 }) {
   this.state = {
     fontColor,
+    recentlyUsedFontColors,
   };
 
   this.setState = (nextState) => {
@@ -35,7 +37,6 @@ export default function TextInput({
   this.$fontColor.addEventListener("change", onSelectFontColor);
 
   // fontSize
-
   this.$fontSizeLabel = document.createElement("label");
   this.$fontSizeLabel.innerText = "글자 크기";
   this.$fontSizeLabel.htmlFor = "fontSizeSelect";
@@ -43,6 +44,10 @@ export default function TextInput({
   this.$fontSizeSelect = document.createElement("select");
   this.$fontSizeSelect.id = "fontSizeSelect";
   this.$fontSizeSelect.name = "fontSizeSelect";
+
+  // recentlyUsedFontColors
+  this.$recentlyUsedFontColors = document.createElement("div");
+  this.$recentlyUsedFontColors.className = "recently_used_font_colors";
 
   for (let i = 1; i <= 10; i++) {
     const $fontSizeOption = document.createElement("option");
@@ -60,6 +65,33 @@ export default function TextInput({
 
   this.render = () => {
     this.$fontColor.value = this.state.fontColor;
+
+    if (
+      this.state.recentlyUsedFontColors &&
+      this.state.recentlyUsedFontColors.length > 0
+    ) {
+      // 내부 엘리먼트 초기화
+      this.$recentlyUsedFontColors.innerHTML = "";
+
+      const $ul = document.createElement("ul");
+
+      $ul.addEventListener("click", onSelectFontColor);
+
+      $ul.innerHTML = `
+        ${this.state.recentlyUsedFontColors
+          .map(
+            (fontColor) =>
+              `<li data-color="${fontColor}"
+                   style="background : ${fontColor}"></li>`
+          )
+          .join("")}
+      `;
+
+      this.$recentlyUsedFontColors.appendChild($ul);
+    } else {
+      this.$recentlyUsedFontColors.innerHTML =
+        "<p>최근 선택한 글자색이 없습니다</p>";
+    }
   };
 
   $app.appendChild(this.$fontLegend);
@@ -71,4 +103,6 @@ export default function TextInput({
 
   $app.appendChild(this.$fontSizeLabel);
   $app.appendChild(this.$fontSizeSelect);
+
+  $app.appendChild(this.$recentlyUsedFontColors);
 }
