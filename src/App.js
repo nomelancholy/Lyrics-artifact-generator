@@ -174,7 +174,9 @@ export default function App({ $app }) {
         ...this.state,
         gradients: gradients,
         selectedGradient: gradients[basicGraidentIndex].colors.join(","),
-        recentlyUsedGradients: bgColors,
+        recentlyUsedGradients: bgColors
+          ? bgColors
+          : [gradients[basicGraidentIndex].colors.join(",")],
         recentlyUsedFontColors: fontColors
           ? fontColors
           : this.state.recentlyUsedFontColors,
