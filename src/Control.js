@@ -1,31 +1,52 @@
 import Geneate from "./Generate.js";
-import TextInput from "./TextInput.js";
+import TextControl from "./TextControl.js";
+import BgControl from "./BgControl.js";
 
 export default function Control({
   $app,
+  gradients,
+  recentlyUsedGradients,
   onKeyUp,
-  onSelectColor,
+  onSelectFontColor,
   onSelectFontSize,
+  onSelectBgColor,
+  onClickRotateBtn,
 }) {
-  this.$textInputSection = document.createElement("div");
-  this.$textInputSection.className = "textInputSection";
+  this.$controlSection = document.createElement("div");
+  this.$controlSection.className = "controlSection";
 
-  new TextInput({
-    $app: this.$textInputSection,
+  this.state = {
+    gradients,
+    recentlyUsedGradients,
+  };
+
+  this.setState = (nextState) => {
+    this.state = {
+      ...this.state,
+      ...nextState,
+    };
+    bgControl.setState({
+      ...bgControl.state,
+      ...this.state,
+    });
+  };
+
+  const bgControl = new BgControl({
+    $app: this.$controlSection,
+    gradients: this.state.gradients,
+    recentlyUsedGradients: this.state.recentlyUsedGradients,
+    onSelectBgColor,
+    onClickRotateBtn,
+  });
+
+  new TextControl({
+    $app: this.$controlSection,
     onKeyUp,
-    onSelectColor,
+    onSelectFontColor,
     onSelectFontSize,
   });
 
-  this.$generateSection = document.createElement("div");
-  this.$generateSection.className = "generateSection";
-
-  new Geneate({ $app: this.$generateSection });
-
-  this.$controlSection = document.createElement("div");
-  this.$controlSection.className = "controlSection";
-  this.$controlSection.appendChild(this.$textInputSection);
-  this.$controlSection.appendChild(this.$generateSection);
+  new Geneate({ $app: this.$controlSection });
 
   $app.appendChild(this.$controlSection);
 }

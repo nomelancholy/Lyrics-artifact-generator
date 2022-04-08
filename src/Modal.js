@@ -3,8 +3,8 @@ export default function Modal({ $app, gradients = [], onSelectBgColor }) {
     gradients,
   };
 
-  this.setState = (params) => {
-    this.state = params;
+  this.setState = (nextState) => {
+    this.state = nextState;
     this.render();
   };
 

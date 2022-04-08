@@ -1,9 +1,14 @@
 export default function TextInput({
   $app,
   onKeyUp,
-  onSelectColor,
+  onSelectFontColor,
   onSelectFontSize,
 }) {
+  // legend
+  this.$fontLegend = document.createElement("legend");
+  this.$fontLegend.innerText = "font control";
+
+  // fontColor
   this.$fontColorLabel = document.createElement("label");
   this.$fontColorLabel.innerText = "글자 색";
   this.$fontColorLabel.htmlFor = "fontColor";
@@ -13,7 +18,9 @@ export default function TextInput({
   this.$fontColor.id = "fontColor";
   this.$fontColor.value = "#ffffff";
 
-  this.$fontColor.addEventListener("change", onSelectColor);
+  this.$fontColor.addEventListener("change", onSelectFontColor);
+
+  // fontSize
 
   this.$fontSizeLabel = document.createElement("label");
   this.$fontSizeLabel.innerText = "글자 크기";
@@ -33,8 +40,11 @@ export default function TextInput({
 
   this.$fontSizeSelect.addEventListener("change", onSelectFontSize);
 
+  // textArea
   this.$textArea = document.createElement("textarea");
   this.$textArea.addEventListener("keyup", onKeyUp);
+
+  $app.appendChild(this.$fontLegend);
 
   $app.appendChild(this.$textArea);
 
