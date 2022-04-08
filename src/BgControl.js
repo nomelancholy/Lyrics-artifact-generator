@@ -8,10 +8,10 @@ export default function BgControl({
   onClickRotateBtn,
 }) {
   this.$bgControl = document.createElement("div");
-  this.$bgControl.className = "bgControl";
+  this.$bgControl.className = "bg_control";
 
   this.$bgFieldset = document.createElement("fieldset");
-  this.$bgFieldset.className = "bgFieldset";
+  this.$bgFieldset.className = "bg_fieldset";
 
   this.state = {
     gradients,

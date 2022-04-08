@@ -15,7 +15,7 @@ export default function Control({
   onClickRotateBtn,
 }) {
   this.$controlSection = document.createElement("div");
-  this.$controlSection.className = "controlSection";
+  this.$controlSection.className = "control_section";
 
   this.state = {
     gradients,
