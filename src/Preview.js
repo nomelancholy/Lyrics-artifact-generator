@@ -5,6 +5,7 @@ export default function Preview({
   text,
   fontSize,
   fontColor,
+  selectedFontFamily,
   selectedGradient,
   rotateIndex,
 }) {
@@ -12,6 +13,7 @@ export default function Preview({
     text,
     fontSize,
     fontColor,
+    selectedFontFamily,
     selectedGradient,
     rotateIndex,
   };
@@ -35,6 +37,7 @@ export default function Preview({
     text: this.state.text,
     fontSize: this.state.fontSize,
     fontColor: this.state.fontColor,
+    selectedFontFamily: this.state.selectedFontFamily,
     selectedGradient: this.state.selectedGradient,
     rotateIndex: this.state.rotateIndex,
   });

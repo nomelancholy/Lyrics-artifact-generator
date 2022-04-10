@@ -7,6 +7,7 @@ export default function TextControl({
   onKeyUp,
   onSelectFontColor,
   onSelectFontSize,
+  onSelectFontFamily,
 }) {
   this.state = {
     fontColor,
@@ -20,7 +21,7 @@ export default function TextControl({
     };
 
     textInput.setState({
-      ...textInput,
+      ...textInput.state,
       ...this.state,
     });
   };
@@ -40,6 +41,7 @@ export default function TextControl({
     onKeyUp,
     onSelectFontColor,
     onSelectFontSize,
+    onSelectFontFamily,
   });
 
   $app.appendChild(this.$textControl);

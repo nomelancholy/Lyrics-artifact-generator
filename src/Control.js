@@ -11,6 +11,7 @@ export default function Control({
   onKeyUp,
   onSelectFontColor,
   onSelectFontSize,
+  onSelectFontFamily,
   onSelectBgColor,
   onClickRotateBtn,
 }) {
@@ -54,6 +55,7 @@ export default function Control({
     onKeyUp,
     onSelectFontColor,
     onSelectFontSize,
+    onSelectFontFamily,
   });
 
   new Geneate({ $app: this.$controlSection });

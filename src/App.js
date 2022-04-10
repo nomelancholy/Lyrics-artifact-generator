@@ -11,6 +11,7 @@ export default function App({ $app }) {
     text: "",
     fontSize: 1,
     fontColor: "#ffffff",
+    selectedFontFamily: "Noto Sans KR, 400",
     gradients: [],
     recentlyUsedGradients: [],
     recentlyUsedFontColors: ["#ffffff"],
@@ -38,6 +39,7 @@ export default function App({ $app }) {
     text: this.state.text,
     fontSize: this.state.fontSize,
     fontColor: this.state.fontColor,
+    selectedFontFamily: this.state.selectedFontFamily,
     selectedGradient: this.state.selectedGradient,
     rotateIndex: this.state.rotateIndex,
   });
@@ -104,7 +106,11 @@ export default function App({ $app }) {
         fontSize: e.target.value,
       });
     },
-
+    onSelectFontFamily: (e) => {
+      this.setState({
+        selectedFontFamily: e.target.value,
+      });
+    },
     onSelectBgColor: (e) => {
       const $li = e.target.closest("li");
 

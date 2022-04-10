@@ -3,6 +3,7 @@ export default function Canvase({
   text,
   fontSize,
   fontColor,
+  selectedFontFamily,
   selectedGradient,
   rotateIndex,
 }) {
@@ -14,6 +15,7 @@ export default function Canvase({
     text,
     fontSize,
     fontColor,
+    selectedFontFamily,
     selectedGradient,
     rotateIndex,
   };
@@ -71,7 +73,12 @@ export default function Canvase({
 
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.font = `${this.state.fontSize}em Noto Sans KR`;
+
+      const fontOption = this.state.selectedFontFamily.split(",");
+
+      ctx.font = `${fontOption[1].trim()} ${this.state.fontSize}em ${
+        fontOption[0]
+      }`;
 
       const lines = this.state.text.split("\n");
 
