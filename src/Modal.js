@@ -31,7 +31,6 @@ export default function Modal({ $app, gradients = [], onSelectBgColor }) {
         style="background : linear-gradient(to bottom right, ${gradient.colors.join(
           ","
         )})">
-        <span>${gradient.name}</span>
       </li>
     `
           )

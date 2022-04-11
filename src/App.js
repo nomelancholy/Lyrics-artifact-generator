@@ -126,7 +126,7 @@ export default function App({ $app }) {
         }
 
         // 선택한 색을 최근 10번이내 선택하지 않은 경우
-        if (recentlyUsed.indexOf(colors) == -1) {
+        if (!recentlyUsed || recentlyUsed.indexOf(colors) == -1) {
           recentlyUsed.push(colors);
 
           // 두 줄로 10개만 보여주자
