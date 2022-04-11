@@ -159,7 +159,7 @@ export default function App({ $app }) {
   });
 
   const init = async () => {
-    const response = await fetch("/gradients.json");
+    const response = await fetch("./gradients.json");
 
     if (response.ok) {
       const gradients = await response.json();
