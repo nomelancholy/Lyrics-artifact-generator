@@ -98,6 +98,11 @@ export default function TextInput({
     $fontFamilyOption.text = fontFamily;
     $fontFamilyOption.value = fontFamily;
 
+    const [font, weight] = fontFamily.split(",");
+
+    $fontFamilyOption.style.fontFamily = font;
+    $fontFamilyOption.style.fontWeight = weight;
+
     if (fontFamily == "Noto Sans KR, 400") {
       $fontFamilyOption.selected = true;
     }
